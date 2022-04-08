@@ -1,7 +1,7 @@
 {
-  "name": "zgldh/qiniu-laravel-storage",
+  "name": "sunkeyys/qiniu-laravel-storage",
   "type": "library",
-  "description": "Qiniu Resource (Cloud) Storage SDK for Laravel 5/6/7/8/9",
+  "description": "Custom Qiniu Resource (Cloud) Storage SDK for Laravel 5/6/7/8/9",
   "keywords": [
     "qiniu",
     "storage",
@@ -21,6 +21,11 @@
       "email": "chenglongsun_nj@163.com",
       "role": "Developer",
       "homepage": "http://github.com/abcsun"
+    },
+    {
+      "name": "sunkeyys",
+      "email": "neke97@126.com",
+      "role": "Developer",
     }
   ],
   "require": {
