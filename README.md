@@ -1,6 +1,6 @@
-# Qiniu 云储存 Laravel 5/6/7/8/9 Storage版
 
-## 说明
+
+# 说明
 
 由于业务需要，基于 zgldh/qiniu-laravel-storage:0.10.3 进行了简单二次开发。
 修复了在本地测试环境中读取filesystems.php中的七牛云配置异常的问题
@@ -15,6 +15,8 @@
 
 
 ---
+
+# Qiniu 云储存 Laravel 5/6/7/8/9 Storage版
 
 基于 https://github.com/qiniu/php-sdk 开发
 
@@ -34,31 +36,16 @@
 
 ## 安装
 
- - ```composer require zgldh/qiniu-laravel-storage:0.10.3```
- - ```config/app.php``` 里面的 ```providers``` 数组， 加上一行 ```zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class```
- - ```config/filesystem.php``` 里面的 ```disks```数组加上：
+ - ```composer require sunkeyys/qiniu-laravel-storage```
+ - ```config/app.php``` 里面的 ```providers``` 数组， 加上一行 ```sunkeyys\QiniuStorage\QiniuFilesystemServiceProvider::class```
+ - ~~config/filesystem.php``` 里面的 ```disks```数组加上：……~~（不用管了）
+ - 在.env中添加
 
 ```php
-
-    'disks' => [
-        ... ,
-        'qiniu' => [
-            'driver'  => 'qiniu',
-            'domains' => [
-                'default'   => 'xxxxx.com1.z0.glb.clouddn.com', //你的七牛域名
-                'https'     => 'dn-yourdomain.qbox.me',         //你的HTTPS域名
-                'custom'    => 'static.abc.com',                //Useless 没啥用，请直接使用上面的 default 项
-             ],
-            'access_key'=> '',  //AccessKey
-            'secret_key'=> '',  //SecretKey
-            'bucket'    => '',  //Bucket名字
-            'notify_url'=> '',  //持久化处理回调地址
-            'access'    => 'public',  //空间访问控制 public 或 private
-            'hotlink_prevention_key' => 'afc89ff8bd2axxxxxxxxxxxxxxbb', // CDN 时间戳防盗链的 key。 设置为 null 则不启用本功能。
-//            'hotlink_prevention_key' => 'cbab68a279xxxxxxxxxxab509a', // 同上，备用
-        ],
-    ],
-
+QINIU_DOMAIN=xxx.xxx.xxx.xxx.clouddn.com（不用加http://）
+QINIU_ACCESS_KEY=xxx
+QINIU_SECRET_KEY=xxx
+QINIU_BUCKET=空间名称
 ```
 
  - 完成
