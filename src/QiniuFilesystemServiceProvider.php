@@ -1,6 +1,5 @@
 <?php namespace zgldh\QiniuStorage;
 
-use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
@@ -34,7 +33,11 @@ class QiniuFilesystemServiceProvider extends ServiceProvider
             if (isset($config['domains'])) {
                 $domains = $config['domains'];
             } else {
-                $domains = ['default' => $config['domain'], 'https' => null, 'custom' => null];
+                $domains = [
+                    'default' => $config['domain'],
+                    'https' => null,
+                    'custom' => null
+                ];
             }
             $qiniu_adapter = new QiniuAdapter(
                 $config['access_key'],
@@ -46,8 +49,23 @@ class QiniuFilesystemServiceProvider extends ServiceProvider
                 isset($config['hotlink_prevention_key']) ? $config['hotlink_prevention_key'] : null
             );
             $file_system = new Filesystem($qiniu_adapter);
+            $file_system->addPlugin(new PrivateDownloadUrl());
+            $file_system->addPlugin(new DownloadUrl());
+            $file_system->addPlugin(new AvInfo());
+            $file_system->addPlugin(new ImageInfo());
+            $file_system->addPlugin(new ImageExif());
+            $file_system->addPlugin(new ImagePreviewUrl());
+            $file_system->addPlugin(new PersistentFop());
+            $file_system->addPlugin(new PersistentStatus());
+            $file_system->addPlugin(new UploadToken());
+            $file_system->addPlugin(new PrivateImagePreviewUrl());
+            $file_system->addPlugin(new VerifyCallback());
+            $file_system->addPlugin(new Fetch());
+            $file_system->addPlugin(new Qetag());
+            $file_system->addPlugin(new WithUploadToken());
+            $file_system->addPlugin(new LastReturn());
 
-            return new FilesystemAdapter($file_system, $qiniu_adapter, $config);
+            return $file_system;
         }
         );
     }
